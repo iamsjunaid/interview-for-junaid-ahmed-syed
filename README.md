@@ -67,3 +67,30 @@ export default tseslint.config([
   },
 ])
 ```
+
+## TailwindCSS Setup
+
+This project uses [TailwindCSS](https://tailwindcss.com/).
+
+### Installation Steps
+
+1. Install dependencies:
+   ```bash
+   npm install -D tailwindcss postcss autoprefixer
+   npx tailwindcss init -p
+   ```
+2. Configure `tailwind.config.js` content paths:
+   ```js
+   content: [
+     "./index.html",
+     "./src/**/*.{js,ts,jsx,tsx}",
+     "./public/**/*.{html,js}"
+   ]
+   ```
+3. Add Tailwind directives to `src/index.css`:
+   ```css
+   @tailwind base;
+   @tailwind components;
+   @tailwind utilities;
+   ```
+4. Use Tailwind classes in your components.
