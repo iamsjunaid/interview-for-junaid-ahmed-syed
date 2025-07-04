@@ -56,16 +56,16 @@ const LaunchDetailsModal: React.FC<LaunchDetailsModalProps> = ({ open, onClose, 
         <div className="">
           <table className="w-full text-sm">
             <tbody>
-              <tr className="border-b-1 border-gray-200 "><td className="font-medium p-2 w-1/3 text-gray-500 w-1/3">Flight Number</td><td className="p-2">{launch.flight_number}</td></tr>
-              <tr className="border-b-1 border-gray-200"><td className="font-medium p-2 w-1/2 text-gray-500">Mission Name</td><td className="p-2">{launch.name}</td></tr>
-              <tr className="border-b-1 border-gray-200"><td className="font-medium p-2 w-1/2 text-gray-500">Rocket Type</td><td className="p-2">{rocket?.type || "N/A"}</td></tr>
-              <tr className="border-b-1 border-gray-200"><td className="font-medium p-2 w-1/2 text-gray-500">Rocket Name</td><td className="p-2">{rocket?.name || "N/A"}</td></tr>
-              <tr className="border-b-1 border-gray-200"><td className="font-medium p-2 w-1/2 text-gray-500">Manufacturer</td><td className="p-2">{rocket?.company || "N/A"}</td></tr>
-              <tr className="border-b-1 border-gray-200"><td className="font-medium p-2 w-1/2 text-gray-500">Nationality</td><td className="p-2">{rocket?.country || "N/A"}</td></tr>
+              <tr className="border-b-1 border-gray-200 "><td className="font-medium p-2 text-gray-500 w-1/3">Flight Number</td><td className="p-2">{String(launch.flight_number ?? "")}</td></tr>
+              <tr className="border-b-1 border-gray-200"><td className="font-medium p-2 w-1/2 text-gray-500">Mission Name</td><td className="p-2">{String(launch.name ?? "")}</td></tr>
+              <tr className="border-b-1 border-gray-200"><td className="font-medium p-2 w-1/2 text-gray-500">Rocket Type</td><td className="p-2">{String(rocket?.type || "N/A")}</td></tr>
+              <tr className="border-b-1 border-gray-200"><td className="font-medium p-2 w-1/2 text-gray-500">Rocket Name</td><td className="p-2">{String(rocket?.name ?? "N/A")}</td></tr>
+              <tr className="border-b-1 border-gray-200"><td className="font-medium p-2 w-1/2 text-gray-500">Manufacturer</td><td className="p-2">{String(rocket?.company ?? "N/A")}</td></tr>
+              <tr className="border-b-1 border-gray-200"><td className="font-medium p-2 w-1/2 text-gray-500">Nationality</td><td className="p-2">{String(rocket?.country ?? "N/A")}</td></tr>
               <tr className="border-b-1 border-gray-200"><td className="font-medium p-2 w-1/2 text-gray-500">Launch Date</td><td className="p-2">{new Date(launch.date_utc).toLocaleString()}</td></tr>
-              <tr className="border-b-1 border-gray-200"><td className="font-medium p-2 w-1/2 text-gray-500">Payload Type</td><td className="p-2">{payload?.type || "N/A"}</td></tr>
-              <tr className="border-b-1 border-gray-200"><td className="font-medium p-2 w-1/2 text-gray-500">Orbit</td><td className="p-2">{payload?.orbit || "N/A"}</td></tr>
-              <tr className="border-b-1 border-gray-200"><td className="font-medium p-2 w-1/2 text-gray-500">Launch Site</td><td className="p-2">{launchpad?.name || "N/A"}</td></tr>
+              <tr className="border-b-1 border-gray-200"><td className="font-medium p-2 w-1/2 text-gray-500">Payload Type</td><td className="p-2">{String(payload?.type ?? "N/A")}</td></tr>
+              <tr className="border-b-1 border-gray-200"><td className="font-medium p-2 w-1/2 text-gray-500">Orbit</td><td className="p-2">{String(payload?.orbit ?? "N/A")}</td></tr>
+              <tr className="border-b-1 border-gray-200"><td className="font-medium p-2 w-1/2 text-gray-500">Launch Site</td><td className="p-2">{String(launchpad?.name ?? "N/A")}</td></tr>
             </tbody>
           </table>
         </div>
