@@ -29,5 +29,13 @@ export interface Launch {
   rocket?: string;
   launchpad?: string;
   success?: boolean;
+  links?: {
+    patch?: {
+      small?: string;
+      large?: string;
+    };
+    wikipedia?: string;
+    [key: string]: unknown;
+  };
   [key: string]: unknown;
 } 
