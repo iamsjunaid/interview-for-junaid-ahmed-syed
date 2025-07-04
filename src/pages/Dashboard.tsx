@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { getAllLaunches, getAllPayloads, getAllRockets, getAllLaunchpads } from "../lib/api";
 import type { Launch, Payload, Rocket, Launchpad } from "../types/launch";
+import { FilterDropdowns } from "@/components/FilterToggle";
 import Logo from "@/assets/Logo.png";
 
 export default function Dashboard() {
@@ -40,12 +41,13 @@ export default function Dashboard() {
         <img src={Logo} alt="Logo" className="my-4" style={{ width: 260, height: 32 }} />
         <div className="w-full h-px bg-gray-300 rounded" />
       </div>
-      <div className="max-w-7xl mx-auto px-2 sm:px-4 py-6 sm:py-8">
+      <div className="max-w-7xl mx-auto px-2 sm:px-4 py-6 sm:py-4">
 
 
         {loading && <p>Loading launches...</p>}
         {error && <p className="text-red-500">{error}</p>}
 
+        <FilterDropdowns />
         {!loading && launches.length > 0 && (
           <div className="w-full overflow-x-auto rounded-lg shadow border bg-white">
             <table className="min-w-[600px] w-full table-auto text-sm text-left">
