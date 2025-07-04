@@ -3,6 +3,7 @@ import { getAllLaunches, getAllPayloads, getAllRockets, getAllLaunchpads } from 
 import type { Launch, Payload, Rocket, Launchpad } from "../types/launch";
 import { FilterDropdowns } from "@/components/FilterToggle";
 import Logo from "@/assets/Logo.png";
+import LaunchDetailsModal from "@/components/LaunchDetailsModal";
 
 export default function Dashboard() {
   const [launches, setLaunches] = useState<Launch[]>([]);
@@ -11,6 +12,8 @@ export default function Dashboard() {
   const [launchpadMap, setLaunchpadMap] = useState<Record<string, Launchpad>>({});
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [selectedLaunch, setSelectedLaunch] = useState<Launch | null>(null);
+  const [detailsModalOpen, setDetailsModalOpen] = useState(false);
 
   useEffect(() => {
     async function fetchData() {
@@ -81,7 +84,7 @@ export default function Dashboard() {
                     launchpadName = launchpadMap[launch.launchpad].name || "Unknown";
                   }
                   return (
-                    <tr key={launch.id} className="hover:bg-gray-50">
+                    <tr key={launch.id} className="hover:bg-gray-50 cursor-pointer" onClick={() => { setSelectedLaunch(launch); setDetailsModalOpen(true); }}>
                       <td className="px-2 sm:px-4 py-2 sm:py-3">{index + 1}</td>
                       <td className="px-2 sm:px-4 py-2 sm:py-3">
                         {new Date(launch.date_utc).toUTCString()}
@@ -121,6 +124,15 @@ export default function Dashboard() {
           <p className="text-gray-500 mt-4">No launches found.</p>
         )}
       </div>
+
+      <LaunchDetailsModal
+        open={detailsModalOpen}
+        onClose={() => setDetailsModalOpen(false)}
+        launch={selectedLaunch}
+        rocket={selectedLaunch && selectedLaunch.rocket ? rocketMap[selectedLaunch.rocket] : undefined}
+        payload={selectedLaunch && selectedLaunch.payloads && selectedLaunch.payloads[0] ? payloadMap[selectedLaunch.payloads[0]] : undefined}
+        launchpad={selectedLaunch && selectedLaunch.launchpad ? launchpadMap[selectedLaunch.launchpad] : undefined}
+      />
     </>
   );
 }
