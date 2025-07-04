@@ -9,7 +9,6 @@ import "react-date-range/dist/theme/default.css";
 interface DateFilterModalProps {
   open: boolean;
   onClose: () => void;
-  onApply: (range: Range) => void;
 }
 
 const quickRanges = [
@@ -21,7 +20,7 @@ const quickRanges = [
   { label: "Past 2 years", range: () => ({ startDate: subYears(new Date(), 2), endDate: new Date() }) },
 ];
 
-const DateFilterModal: React.FC<DateFilterModalProps> = ({ open, onClose, onApply }) => {
+const DateFilterModal: React.FC<DateFilterModalProps> = ({ open, onClose }) => {
   const [range, setRange] = useState<Range>({
     startDate: subMonths(new Date(), 6),
     endDate: new Date(),
