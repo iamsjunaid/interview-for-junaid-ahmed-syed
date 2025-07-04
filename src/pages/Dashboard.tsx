@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { getAllLaunches, getAllPayloads, getAllRockets, getAllLaunchpads } from "../lib/api";
 import type { Launch, Payload, Rocket, Launchpad } from "../types/launch";
 import { FilterDropdowns } from "@/components/FilterToggle";
+import type { LaunchStatusFilter } from "@/components/FilterToggle";
 import Logo from "@/assets/Logo.png";
 import LaunchDetailsModal from "@/components/LaunchDetailsModal";
 
@@ -14,6 +15,7 @@ export default function Dashboard() {
   const [error, setError] = useState<string | null>(null);
   const [selectedLaunch, setSelectedLaunch] = useState<Launch | null>(null);
   const [detailsModalOpen, setDetailsModalOpen] = useState(false);
+  const [statusFilter, setStatusFilter] = useState<LaunchStatusFilter>("all");
 
   useEffect(() => {
     async function fetchData() {
@@ -38,6 +40,16 @@ export default function Dashboard() {
     fetchData();
   }, []);
 
+  // Filter launches based on statusFilter
+  const filteredLaunches = launches.filter((launch) => {
+    if (statusFilter === "all") return true;
+    if (statusFilter === "upcoming") return launch.upcoming;
+    if (statusFilter === "past") return !launch.upcoming;
+    if (statusFilter === "success") return launch.success === true;
+    if (statusFilter === "failed") return launch.success === false && !launch.upcoming;
+    return true;
+  });
+
   return (
     <>
       <div className="flex flex-col items-center mb-6">
@@ -50,7 +62,7 @@ export default function Dashboard() {
         {loading && <p>Loading launches...</p>}
         {error && <p className="text-red-500">{error}</p>}
 
-        <FilterDropdowns />
+        <FilterDropdowns selectedStatus={statusFilter} onStatusChange={setStatusFilter} />
         {!loading && launches.length > 0 && (
           <div className="w-full overflow-x-auto rounded-lg shadow border bg-white">
             <table className="min-w-[600px] w-full table-auto text-sm text-left">
@@ -66,7 +78,7 @@ export default function Dashboard() {
                 </tr>
               </thead>
               <tbody className="divide-y">
-                {launches.map((launch, index) => {
+                {filteredLaunches.map((launch, index) => {
                   // Get the first payload's orbit if available
                   let orbit = "N/A";
                   const firstPayloadId = launch.payloads?.[0];
@@ -120,7 +132,7 @@ export default function Dashboard() {
           </div>
         )}
 
-        {!loading && launches.length === 0 && (
+        {!loading && filteredLaunches.length === 0 && (
           <p className="text-gray-500 mt-4">No launches found.</p>
         )}
       </div>

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import {
   DropdownMenu,
   DropdownMenuTrigger,
@@ -10,8 +10,23 @@ import { Button } from "@/components/ui/button";
 import { CalendarIcon, FilterIcon } from "lucide-react";
 import DateFilterModal from "./DateFilterModal";
 
-export function FilterDropdowns() {
+export type LaunchStatusFilter = "all" | "upcoming" | "past" | "success" | "failed";
+
+interface FilterDropdownsProps {
+  selectedStatus: LaunchStatusFilter;
+  onStatusChange: (status: LaunchStatusFilter) => void;
+}
+
+export function FilterDropdowns({ selectedStatus, onStatusChange }: FilterDropdownsProps) {
   const [dateModalOpen, setDateModalOpen] = useState(false);
+
+  const statusLabels: Record<LaunchStatusFilter, string> = {
+    all: "All Launches",
+    upcoming: "Upcoming Launches",
+    past: "Past Launches",
+    success: "Successful Launches",
+    failed: "Failed Launches",
+  };
 
   return (
     <div className="flex flex-col sm:flex-row justify-between gap-4 mb-6">
@@ -29,16 +44,15 @@ export function FilterDropdowns() {
         <DropdownMenuTrigger asChild>
           <Button variant="ghost" className="gap-2">
             <FilterIcon className="w-4 h-4" />
-            All Launches
+            {statusLabels[selectedStatus]}
           </Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent>
           <DropdownMenuLabel>Filter by Status</DropdownMenuLabel>
-          <DropdownMenuItem>All Launches</DropdownMenuItem>
-          <DropdownMenuItem>Upcoming</DropdownMenuItem>
-          <DropdownMenuItem>Past</DropdownMenuItem>
-          <DropdownMenuItem>Success</DropdownMenuItem>
-          <DropdownMenuItem>Failed</DropdownMenuItem>
+          <DropdownMenuItem onClick={() => onStatusChange("all")}>All Launches</DropdownMenuItem>
+          <DropdownMenuItem onClick={() => onStatusChange("upcoming")}>Upcoming Launches</DropdownMenuItem>
+          <DropdownMenuItem onClick={() => onStatusChange("success")}>Successful Launches</DropdownMenuItem>
+          <DropdownMenuItem onClick={() => onStatusChange("failed")}>Failed Launches</DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
     </div>
