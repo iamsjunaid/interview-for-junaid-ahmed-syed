@@ -41,7 +41,7 @@ export default function Dashboard() {
   }, []);
 
   // Filter launches based on statusFilter
-  const filteredLaunches = launches.filter((launch) => {
+  const filteredLaunches: Launch[] = launches.filter((launch) => {
     if (statusFilter === "all") return true;
     if (statusFilter === "upcoming") return launch.upcoming;
     if (statusFilter === "past") return !launch.upcoming;
@@ -64,7 +64,7 @@ export default function Dashboard() {
 
         <FilterDropdowns selectedStatus={statusFilter} onStatusChange={setStatusFilter} />
         {!loading && launches.length > 0 && (
-          <div className="w-full overflow-x-auto rounded-lg shadow border bg-white">
+          <div className="w-full overflow-x-auto rounded-lg border border-gray-200 bg-white">
             <table className="min-w-[600px] w-full table-auto text-sm text-left">
               <thead className="bg-gray-100 text-gray-700 uppercase text-xs">
                 <tr>
@@ -78,7 +78,7 @@ export default function Dashboard() {
                 </tr>
               </thead>
               <tbody className="divide-y">
-                {filteredLaunches.map((launch, index) => {
+                {filteredLaunches.length > 0 ? filteredLaunches.map((launch, index) => {
                   // Get the first payload's orbit if available
                   let orbit = "N/A";
                   const firstPayloadId = launch.payloads?.[0];
@@ -126,15 +126,21 @@ export default function Dashboard() {
                       <td className="px-2 sm:px-4 py-2 sm:py-3">{rocketName}</td>
                     </tr>
                   );
-                })}
+                }) : (
+                  <tr>
+                    <td colSpan={7}>
+                      <div className="flex justify-center items-center h-64">
+                        <p className="text-gray-500 text-center">No results found for the specified filter.</p>
+                      </div>
+                    </td>
+                  </tr>
+                )}
               </tbody>
             </table>
           </div>
-        )}
+        )} 
 
-        {!loading && filteredLaunches.length === 0 && (
-          <p className="text-gray-500 mt-4">No launches found.</p>
-        )}
+
       </div>
 
       <LaunchDetailsModal
