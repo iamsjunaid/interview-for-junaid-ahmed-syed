@@ -1,5 +1,7 @@
 # SpaceX Launch Dashboard
 
+**Live Demo:** [https://interview-for-junaid-ahmed-syed.vercel.app/](https://interview-for-junaid-ahmed-syed.vercel.app/)
+
 A modern React + TypeScript dashboard for exploring SpaceX launches, built with Vite and TailwindCSS.
 
 ## Features
