@@ -41,6 +41,10 @@ export default function Dashboard() {
     fetchData();
   }, []);
 
+  useEffect(() => {
+    if (error) console.log(error);
+  }, [error]);
+
   // Filter launches based on statusFilter
   const filteredLaunches: Launch[] = launches.filter((launch) => {
     if (statusFilter === "all") return true;
@@ -58,10 +62,6 @@ export default function Dashboard() {
         <div className="w-full h-px bg-gray-300 rounded" />
       </div>
       <div className="max-w-7xl mx-auto px-2 sm:px-4 py-6 sm:py-4">
-
-
-        {error && <p className="text-red-500">{error}</p>}
-
         <FilterDropdowns selectedStatus={statusFilter} onStatusChange={setStatusFilter} />
         <div className="w-full overflow-x-auto rounded-lg border border-gray-200 bg-white">
           <table className="min-w-[600px] w-full table-auto text-sm text-left">
