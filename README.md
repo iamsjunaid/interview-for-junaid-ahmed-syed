@@ -1,69 +1,107 @@
-# React + TypeScript + Vite
+# SpaceX Launch Dashboard
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+**Live Demo:** [https://interview-for-junaid-ahmed-syed.vercel.app/](https://interview-for-junaid-ahmed-syed.vercel.app/)
 
-Currently, two official plugins are available:
+A modern React + TypeScript dashboard for exploring SpaceX launches, built with Vite and TailwindCSS.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Features
 
-## Expanding the ESLint configuration
+- **Live SpaceX Data:** Fetches launches, rockets, payloads, and launchpads from the [SpaceX API v4](https://github.com/r-spacex/SpaceX-API).
+- **Filter Launches:**  
+  - By status: All, Upcoming, Past, Success, Failed  
+- **Launch Details Modal:** Click any launch to view mission, rocket, payload, and site details in a modal.
+- **Responsive UI:** Clean, responsive design with TailwindCSS.
+- **Loading & Empty States:** Animated spinner while loading, and a friendly message if no results match your filters.
+- **Type-safe:** Built with TypeScript throughout.
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## Getting Started
 
-```js
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+### Prerequisites
 
-      // Remove tseslint.configs.recommended and replace with this
-      ...tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      ...tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      ...tseslint.configs.stylisticTypeChecked,
+- Node.js (v18+ recommended)
+- npm or yarn
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+### Installation
+
+1. **Clone the repository:**
+   ```bash
+   git clone https://github.com/iamsjunaid/interview-for-junaid-ahmed-syed/
+   cd interview-for-junaid-ahmed-syed
+   ```
+
+2. **Install dependencies:**
+   ```bash
+   npm install
+   # or
+   yarn install
+   ```
+
+3. **Start the development server:**
+   ```bash
+   npm run dev
+   # or
+   yarn dev
+   ```
+
+4. **Open your browser:**  
+   Visit [http://localhost:5173](http://localhost:5173) (or the port shown in your terminal).
+
+### Build for Production
+
+```bash
+npm run build
+# or
+yarn build
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
-
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+Preview the production build:
+```bash
+npm run preview
+# or
+yarn preview
 ```
+
+### Linting
+
+```bash
+npm run lint
+# or
+yarn lint
+```
+
+## Project Structure
+
+```
+src/
+  assets/           # Images and styles
+  components/       # UI components (modals, filters, spinner, etc.)
+  lib/              # API utilities for SpaceX data
+  pages/            # Main Dashboard page
+  types/            # TypeScript types for launches, rockets, etc.
+public/             # Static assets
+```
+
+## API
+
+This app uses the public [SpaceX API v4](https://github.com/r-spacex/SpaceX-API):
+
+- Launches: `https://api.spacexdata.com/v4/launches`
+- Rockets: `https://api.spacexdata.com/v4/rockets`
+- Payloads: `https://api.spacexdata.com/v4/payloads`
+- Launchpads: `https://api.spacexdata.com/v4/launchpads`
+
+## Customization
+
+- **TailwindCSS:**  
+  See `tailwind.config.js` and use Tailwind utility classes in your components.
+- **ESLint:**  
+  Type-aware linting is enabled. See `eslint.config.js` for advanced configuration.
+
+## Credits
+
+- [SpaceX API](https://github.com/r-spacex/SpaceX-API)
+- [Vite](https://vitejs.dev/)
+- [TailwindCSS](https://tailwindcss.com/)
+- [React](https://react.dev/)
+
+---
